@@ -1,0 +1,31 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data files (optional/large files)
+data/*.csv
+*.csv
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini

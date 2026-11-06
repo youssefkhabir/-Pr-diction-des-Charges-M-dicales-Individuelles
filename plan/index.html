@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master ISI — Research & Engineering Project Plan: Medical Insurance Charges Prediction</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Academic Mathematical Typography -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-paper: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --text-heading: #0f172a;
+      --academic-navy: #1e3a8a;
+      --academic-blue: #2563eb;
+      --academic-gold: #d97706;
+      --academic-teal: #0f766e;
+      --code-bg: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Academic Header Banner */
+    .top-academic-bar {
+      background: linear-gradient(135deg, #091224 0%, #172554 100%);
+      color: #e2e8f0;
+      padding: 14px 40px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #3b82f6;
+    }
+
+    .top-academic-bar .badge {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Layout Container */
+    .page-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 32px;
+      padding: 36px 32px 64px 32px;
+    }
+
+    /* Sticky Sidebar Table of Contents */
+    .sidebar-toc {
+      position: sticky;
+      top: 24px;
+      height: fit-content;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .sidebar-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--academic-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.86rem;
+    }
+
+    .toc-item a {
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+
+    .toc-item a:hover {
+      color: var(--academic-blue);
+      background: #eff6ff;
+      transform: translateX(3px);
+    }
+
+    .toc-item.nested {
+      padding-left: 14px;
+      font-size: 0.8rem;
+    }
+
+    .progress-box {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed #cbd5e1;
+    }
+
+    .progress-bar-container {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #2563eb, #10b981);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Main Paper Container */
+    .paper-main {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 64px 72px;
+    }
+
+    /* Paper Header */
+    .paper-header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 36px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .paper-pretitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--academic-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .paper-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 2.85rem;
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--text-heading);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .paper-subtitle {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #475569;
+      max-width: 820px;
+      margin: 0 auto 24px auto;
+      line-height: 1.5;
+    }
+
+    .paper-meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px 36px;
+      margin-top: 24px;
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      border: 1px solid #e2e8f0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .paper-meta-item strong {
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    /* Abstract Card */
+    .abstract-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--academic-navy);
+      padding: 24px 28px;
+      margin-bottom: 44px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      position: relative;
+    }
+
+    .abstract-label {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--academic-navy);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Section Styles */
+    section {
+      margin-bottom: 56px;
+      scroll-margin-top: 30px;
+    }
+
+    h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 10px;
+      margin-top: 28px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    h2 .section-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--academic-blue);
+    }
+
+    h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-top: 26px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 18px;
+      text-align: justify;
+    }
+
+    /* Callout & Notes */
+    .callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid #2563eb;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 0.96rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .callout-warning {
+      background: #fffbeb;
+      border-color: #fde68a;
+      border-left-color: #d97706;
+    }
+    .callout-warning .callout-title {
+      color: #b45309;
+    }
+
+    /* Data Dictionary Table */
+    .academic-table-wrapper {
+      margin: 24px 0 32px 0;
+      overflow-x: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table.academic-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      background: #ffffff;
+      text-align: left;
+    }
+
+    table.academic-table thead th {
+      background: #0f172a;
+      color: #f8fafc;
+      font-weight: 600;
+      padding: 14px 18px;
+      letter-spacing: 0.03em;
+      border-bottom: 2px solid #334155;
+    }
+
+    table.academic-table tbody td {
+      padding: 13px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+      vertical-align: middle;
+    }
+
+    table.academic-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    table.academic-table tbody tr:hover {
+      background: #f1f5f9;
+    }
+
+    /* Tag badges */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+    .tag-num { background: #e0e7ff; color: #3730a3; }
+    .tag-cat { background: #fef3c7; color: #92400e; }
+    .tag-target { background: #fee2e2; color: #991b1b; }
+    .tag-phase { background: #dcfce7; color: #166534; }
+
+    /* Architecture Visual Workflow Diagram */
+    .workflow-container {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .workflow-svg {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* Phase Cards */
+    .phase-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 26px 28px;
+      margin: 24px 0 32px 0;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .phase-card:hover {
+      border-color: #93c5fd;
+      box-shadow: var(--shadow-md);
+    }
+
+    .phase-badge-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 12px;
+    }
+
+    .phase-id {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--academic-navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .task-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 14px 0;
+      font-size: 0.98rem;
+    }
+
+    .task-list > li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .task-list > li::before {
+      content: "→";
+      position: absolute;
+      left: 6px;
+      color: var(--academic-blue);
+      font-weight: bold;
+    }
+
+    .subtask-list {
+      list-style-type: disc;
+      padding-left: 24px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: #475569;
+      font-size: 0.94rem;
+    }
+
+    .subtask-list li {
+      margin-bottom: 5px;
+    }
+
+    .deliverables-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      margin-top: 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .deliverables-title {
+      font-weight: 700;
+      color: var(--academic-teal);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Math Formulas Card */
+    .math-card {
+      background: #fdfdfd;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin: 16px 0;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .math-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+    }
+
+    /* Code Block */
+    code, pre {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.88em;
+    }
+
+    code {
+      background: var(--code-bg);
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+    }
+
+    pre code {
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+
+    .code-window {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 18px 0;
+      border: 1px solid #334155;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .code-header {
+      background: #1e293b;
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+
+    .code-body {
+      padding: 16px 20px;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    /* Interactive Checklist */
+    .checklist-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin: 24px 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .checklist-item:hover {
+      background: #f8fafc;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      cursor: pointer;
+      accent-color: #2563eb;
+    }
+
+    .checklist-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 11pt;
+      }
+      .top-academic-bar, .sidebar-toc, .btn-print {
+        display: none !important;
+      }
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        padding: 0;
+        margin: 0;
+      }
+      .paper-main {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .phase-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+      }
+      .sidebar-toc {
+        display: none;
+      }
+      .paper-main {
+        padding: 36px 24px;
+      }
+      .paper-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Academic Top Banner -->
+  <header class="top-academic-bar">
+    <div>
+      <strong>Master ISI — Machine Learning &amp; Regression Track</strong> &bull; Technical Specification &amp; Implementation Charter
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span class="badge">Session 2026</span>
+      <span class="badge" style="background:rgba(16, 185, 129, 0.2); color:#6ee7b7; border-color:rgba(16, 185, 129, 0.4);">Verified Spec</span>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    
+    <!-- Floating Table of Contents / Navigation -->
+    <aside class="sidebar-toc">
+      <div class="sidebar-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+        Contents
+      </div>
+      <ul class="toc-list">
+        <li class="toc-item"><a href="#overview">1.0 Executive Overview</a></li>
+        <li class="toc-item"><a href="#dataset">2.0 Dataset Specification</a></li>
+        <li class="toc-item"><a href="#methodology">3.0 Methodological Roadmap</a></li>
+        <li class="toc-item nested"><a href="#phase1">Phase 1: Exploratory Data Analysis</a></li>
+        <li class="toc-item nested"><a href="#phase2">Phase 2: Cleaning &amp; Preprocessing</a></li>
+        <li class="toc-item nested"><a href="#phase3">Phase 3: Regularized Modeling</a></li>
+        <li class="toc-item nested"><a href="#phase4">Phase 4: Model Evaluation &amp; Residuals</a></li>
+        <li class="toc-item nested"><a href="#phase5">Phase 5: Feature Selection Methods</a></li>
+        <li class="toc-item nested"><a href="#phase6">Phase 6: Full vs. Selected Features</a></li>
+        <li class="toc-item nested"><a href="#phase7">Phase 7: Synthesis, Limits &amp; Outspan</a></li>
+        <li class="toc-item"><a href="#notebook-structure">4.0 Notebook Architecture</a></li>
+        <li class="toc-item"><a href="#mathematics">5.0 Mathematical Formulations</a></li>
+        <li class="toc-item"><a href="#deliverables">6.0 Evaluation &amp; Rubric</a></li>
+      </ul>
+
+      <div class="progress-box">
+        <div style="font-size:0.75rem; text-transform:uppercase; font-weight:700; color:var(--text-muted); display:flex; justify-content:space-between;">
+          <span>Execution Progress</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Academic Research Charter -->
+    <main class="paper-main">
+      
+      <!-- Academic Paper Header -->
+      <div class="paper-header">
+        <div class="paper-pretitle">Engineering &amp; Research Implementation Plan</div>
+        <h1 class="paper-title">Econometric &amp; Machine Learning Modeling for Individual Medical Charges Prediction</h1>
+        <p class="paper-subtitle">
+          A rigorous 7-phase empirical pipeline leveraging Ordinary Least Squares, L1/L2 Regularization (Ridge, Lasso, ElasticNet), Stepwise Backward Elimination, and Residual Diagnostics.
+        </p>
+        <div class="paper-meta-grid">
+          <div class="paper-meta-item"><strong>Institution:</strong> Master ISI</div>
+          <div class="paper-meta-item"><strong>Course:</strong> Machine Learning / Regression</div>
+          <div class="paper-meta-item"><strong>Target Domain:</strong> Healthcare Actuarial Analytics</div>
+          <div class="paper-meta-item"><strong>Dataset:</strong> <code>medical-charges.csv</code> ($N=1,339$)</div>
+          <div class="paper-meta-item"><strong>Primary Metric:</strong> Root Mean Squared Error (RMSE) &amp; $R^2$</div>
+        </div>
+      </div>
+
+      <!-- Abstract / Executive Summary -->
+      <div class="abstract-box" id="overview">
+        <span class="abstract-label">Abstract &amp; Project Mission</span>
+        <p>
+          This document establishes the comprehensive technical and methodological specification for predicting individual annual medical insurance charges ($Y = \text{charges}$) conditioned on biometric, demographic, and lifestyle covariates ($X$). Adhering to the standard CRISP-DM / academic Data Science lifecycle, the study executes a full sequence: in-depth exploratory data analysis (identifying key interaction phenomena such as $\text{BMI} \times \text{smoker}$), leak-free preprocessing, benchmark parametric modeling with linear regularization, diagnostic residual audits, hypothesis-driven feature selection via <em>Backward Elimination</em>, and parsimonious model validation.
+        </p>
+      </div>
+
+      <!-- SECTION 2: DATASET SPECIFICATION -->
+      <section id="dataset">
+        <h2><span class="section-num">1.</span> Dataset Specification &amp; Schema Topology</h2>
+        <p>
+          The underlying dataset <code>medical-charges.csv</code> reflects individual historical healthcare claims across various residential zones in the United States. It comprises <strong>1,339 observations</strong> across <strong>7 core variables</strong> (6 independent exogenous features and 1 continuous continuous target variable).
+        </p>
+
+        <div class="academic-table-wrapper">
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Statistical Type</th>
+                <th>Description &amp; Operational Definition</th>
+                <th>Permissible Values / Domain</th>
+                <th>Actuarial Relevance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>age</code></td>
+                <td><span class="tag tag-num">Numerical (Int)</span></td>
+                <td>Age of the primary insurance beneficiary</td>
+                <td>18 &ndash; 64 years</td>
+                <td>Strong natural baseline risk factor for chronic morbidity.</td>
+              </tr>
+              <tr>
+                <td><code>sex</code></td>
+                <td><span class="tag tag-cat">Categorical (Binary)</span></td>
+                <td>Biological sex of the beneficiary</td>
+                <td><code>female</code>, <code>male</code></td>
+                <td>Demographic baseline for statistical parity assessment.</td>
+              </tr>
+              <tr>
+                <td><code>bmi</code></td>
+                <td><span class="tag tag-num">Numerical (Float)</span></td>
+                <td>Body Mass Index: $\text{weight (kg)} / [\text{height (m)}]^2$</td>
+                <td>Continuous: 15.96 &ndash; 53.13</td>
+                <td>Clinical indicator of underweight, normal, overweight, and obesity.</td>
+              </tr>
+              <tr>
+                <td><code>children</code></td>
+                <td><span class="tag tag-num">Numerical (Discrete)</span></td>
+                <td>Number of dependents covered under the policy</td>
+                <td>0 &ndash; 5 children</td>
+                <td>Family coverage tier and pediatric care liability.</td>
+              </tr>
+              <tr>
+                <td><code>smoker</code></td>
+                <td><span class="tag tag-cat">Categorical (Binary)</span></td>
+                <td>Regular tobacco smoking status</td>
+                <td><code>yes</code>, <code>no</code></td>
+                <td><strong>Primary single driver</strong> of high-tier respiratory &amp; cardiovascular claims.</td>
+              </tr>
+              <tr>
+                <td><code>region</code></td>
+                <td><span class="tag tag-cat">Categorical (Nominal)</span></td>
+                <td>US residential geographic sector</td>
+                <td><code>southwest</code>, <code>southeast</code>, <code>northwest</code>, <code>northeast</code></td>
+                <td>Regional healthcare pricing variation and state-level policy differentials.</td>
+              </tr>
+              <tr>
+                <td><code>charges</code></td>
+                <td><span class="tag tag-target">Numerical (Target)</span></td>
+                <td>Billed medical costs billed to health insurance</td>
+                <td>Continuous: \$1,121.87 &ndash; \$63,770.43</td>
+                <td>Endogenous dependent outcome variable ($y$). Highly right-skewed.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3: VISUAL WORKFLOW -->
+      <section id="methodology">
+        <h2><span class="section-num">2.</span> Methodological Lifecycle Workflow</h2>
+        <p>
+          The project is structured into seven tightly decoupled phases executed sequentially. The output of each phase forms the audited prerequisite for the subsequent phase.
+        </p>
+
+        <div class="workflow-container">
+          <svg class="workflow-svg" viewBox="0 0 850 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Phase 1 -->
+            <rect x="10" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="57" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 1</text>
+            <text x="57" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Exploratory</text>
+            <text x="57" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Data Analysis</text>
+
+            <path d="M110 70 L126 70" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+            <!-- Phase 2 -->
+            <rect x="130" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="177" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 2</text>
+            <text x="177" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Cleaning &amp;</text>
+            <text x="177" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Preprocessing</text>
+
+            <path d="M230 70 L246 70" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Phase 3 -->
+            <rect x="250" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="297" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 3</text>
+            <text x="297" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Regularized</text>
+            <text x="297" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Modeling</text>
+
+            <path d="M350 70 L366 70" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Phase 4 -->
+            <rect x="370" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="417" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 4</text>
+            <text x="417" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Model</text>
+            <text x="417" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Evaluation</text>
+
+            <path d="M470 70 L486 70" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Phase 5 -->
+            <rect x="490" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="537" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 5</text>
+            <text x="537" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Feature</text>
+            <text x="537" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Selection</text>
+
+            <path d="M590 70 L606 70" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Phase 6 -->
+            <rect x="610" y="25" width="95" height="90" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="657" y="55" fill="#93c5fd" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 6</text>
+            <text x="657" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Model</text>
+            <text x="657" y="90" fill="#cbd5e1" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Comparison</text>
+
+            <path d="M710 70 L726 70" stroke="#64748b" stroke-width="2"/>
+
+            <!-- Phase 7 -->
+            <rect x="730" y="25" width="105" height="90" rx="8" fill="#0f766e" stroke="#10b981" stroke-width="2"/>
+            <text x="782" y="55" fill="#a7f3d0" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" text-anchor="middle">PHASE 7</text>
+            <text x="782" y="75" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Conclusions &amp;</text>
+            <text x="782" y="90" fill="#e2e8f0" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" text-anchor="middle">Perspectives</text>
+          </svg>
+        </div>
+      </section>
+
+      <!-- PHASE 1 -->
+      <div class="phase-card" id="phase1">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 01</span>
+            Phase 1 &mdash; Exploratory Data Analysis (EDA)
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Prerequisite to any feature manipulation</span>
+        </div>
+        
+        <p><strong>Primary Objective:</strong> Formulate an empirical, multi-angle intuition of data distributions, correlations, clustering patterns, and anomalies prior to applying any mathematical mutations.</p>
+        
+        <ul class="task-list">
+          <li>
+            <strong>1.1 Initial Ingestion &amp; Integrity Inspection:</strong>
+            <ul class="subtask-list">
+              <li>Execute <code>df.head()</code>, <code>df.tail()</code>, and inspect dimensionality via <code>df.shape</code>.</li>
+              <li>Audit memory footprint, nullity, and type alignment via <code>df.info()</code>.</li>
+              <li>Derive parametric and non-parametric summary metrics (mean, std, median, 25th/75th percentiles) via <code>df.describe()</code>.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>1.2 Univariate Distributional Auditing:</strong>
+            <ul class="subtask-list">
+              <li>Analyze continuous densities for <code>age</code>, <code>bmi</code>, <code>children</code>, and <code>charges</code> using Kernel Density Estimation (KDE) histograms overlaid with boxplots to gauge skewness and kurtosis.</li>
+              <li>Examine category cardinality and balance for <code>sex</code>, <code>smoker</code>, and <code>region</code> via countplots.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>1.3 Bivariate Interaction Studies:</strong>
+            <ul class="subtask-list">
+              <li>Scatter plots of continuous covariates against <code>charges</code>.</li>
+              <li>Categorical boxplots assessing variance across subgroups (e.g., <code>charges ~ smoker</code>, <code>charges ~ region</code>).</li>
+              <li><strong>Critical Interaction Analysis:</strong> Cross-stratification of $\text{BMI} \times \text{smoker}$ on <code>charges</code> to highlight the compounding actuarial risk of obese tobacco users ($BMI > 30 \land smoker = \text{"yes"}$).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>1.4 Multivariate Structure &amp; Collinearity Mapping:</strong>
+            <ul class="subtask-list">
+              <li>Construct Pearson correlation matrix heatmap across numerical features.</li>
+              <li>Generate pairwise scatter matrices (<code>sns.pairplot</code>) color-coded by the <code>smoker</code> dimension.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>1.5 Outlier Identification &amp; Interquartile Range (IQR) Audits:</strong>
+            <ul class="subtask-list">
+              <li>Formulate lower and upper bounds using Tukey's fences: $[Q_1 - 1.5 \times \text{IQR}, Q_3 + 1.5 \times \text{IQR}]$.</li>
+              <li>Document extreme charges and identify whether they represent legitimate high-cost medical catastrophes or measurement artifacts.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Matplotlib/Seaborn visualization figures with formal captions, followed by textual Markdown interpretation cells presenting clear empirical hypotheses.
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase-card" id="phase2">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 02</span>
+            Phase 2 &mdash; Cleaning &amp; Leak-Free Preprocessing
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Data Sanitation &amp; Vectorization</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Transform raw observational data into mathematically clean, standardized numeric matrices ready for gradient- or normal-equation-based regressors, without introducing data leakage.</p>
+
+        <ul class="task-list">
+          <li>
+            <strong>2.1 Missing Value Diagnostics:</strong>
+            <ul class="subtask-list">
+              <li>Audit total nulls using <code>df.isnull().sum()</code>.</li>
+              <li>Formalize an imputation (median/mean) or deletion strategy depending on missingness mechanism (MCAR, MAR, MNAR).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>2.2 Exact Duplicate Detection &amp; Deduplication:</strong>
+            <ul class="subtask-list">
+              <li>Enumerate identical rows using <code>df.duplicated().sum()</code>.</li>
+              <li>Purge exact duplicates (typically 1 duplicate entry in the standard insurance dataset) to prevent sample inflation.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>2.3 Categorical Encoding &amp; Theoretical Justification:</strong>
+            <ul class="subtask-list">
+              <li>Binary encoding for <code>sex</code> (0: female, 1: male) and <code>smoker</code> (0: no, 1: yes).</li>
+              <li>One-Hot Encoding (OHE) for nominal multi-class feature <code>region</code>, dropping the reference dummy (<code>drop_first=True</code>) to avoid the <em>dummy variable trap</em> (perfect multicollinearity).</li>
+              <li>Academic justification document contrasting One-Hot vs. Label Encoding for non-ordinal features.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>2.4 Feature Scaling &amp; Normalization:</strong>
+            <ul class="subtask-list">
+              <li>Compare Z-score standardization (<code>StandardScaler</code>: $\mu=0, \sigma=1$) versus Min-Max scaling (<code>MinMaxScaler</code>: $[0, 1]$).</li>
+              <li><strong>Anti-Leakage Rule:</strong> Fit scaler exclusively on the training partition ($X_{train}$), and only transform testing data ($X_{test}$).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>2.5 Train/Test Partitioning:</strong>
+            <ul class="subtask-list">
+              <li>Isolate exogenous matrix $X$ and endogenous vector $y = \text{charges}$.</li>
+              <li>Execute 80% / 20% stratified or pseudo-random split via <code>train_test_split</code> with an explicitly seeded <code>random_state=42</code> for scientific reproducibility.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Cleaned training/testing matrices ($X_{train}, X_{test}, y_{train}, y_{test}$), accompanied by a markdown table documenting each preprocessing transformation and its econometric justification.
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase-card" id="phase3">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 03</span>
+            Phase 3 &mdash; Parametric &amp; Regularized Modeling
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">OLS, Ridge, Lasso, ElasticNet</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Implement four linear estimators spanning unregularized Ordinary Least Squares and regularized shrinks to mitigate overfitting and manage coefficient sensitivity.</p>
+
+        <div class="academic-table-wrapper">
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Model Class</th>
+                <th>Objective Function / Penalty</th>
+                <th>Behavioral Characteristic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><strong>Linear Regression (OLS)</strong></td>
+                <td>$\min_{\beta} \|y - X\beta\|_2^2$</td>
+                <td>Unbiased baseline; vulnerable to collinearity and variance explosion.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><strong>Ridge Regression (L2)</strong></td>
+                <td>$\min_{\beta} \|y - X\beta\|_2^2 + \alpha \|\beta\|_2^2$</td>
+                <td>Shrinks weights continuously toward zero ($\alpha \neq 0$); retains all features.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><strong>Lasso Regression (L1)</strong></td>
+                <td>$\min_{\beta} \|y - X\beta\|_2^2 + \alpha \|\beta\|_1$</td>
+                <td>Promotes sparsity; drives non-salient feature weights strictly to zero.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><strong>ElasticNet</strong></td>
+                <td>$\min_{\beta} \|y - X\beta\|_2^2 + \alpha \rho \|\beta\|_1 + \frac{\alpha(1-\rho)}{2}\|\beta\|_2^2$</td>
+                <td>Balanced convex combination of L1 and L2 penalty controlled by <code>l1_ratio</code> ($\rho$).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="task-list">
+          <li><strong>3.1 Model Fitting &amp; Convergence:</strong> Train all four models on the sanitized training set.</li>
+          <li><strong>3.2 Out-of-Sample Inference:</strong> Generate predicted charges $\hat{y}_{test}$ on the unseen test partition.</li>
+          <li><strong>3.3 Coefficient Interpretability:</strong> Tabulate and compare learned feature weights $\beta_j$ across models to observe shrinkage dynamics.</li>
+          <li><strong>3.4 K-Fold Cross-Validation:</strong> Apply 5-fold cross-validation (<code>cross_val_score</code>) across training folds to verify stability.</li>
+          <li><strong>3.5 Hyperparameter Optimization (Optional/Recommended):</strong> Systematic grid search via <code>GridSearchCV</code>, <code>RidgeCV</code>, and <code>LassoCV</code> to identify optimal regularization parameter $\alpha^*$.</li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Trained Scikit-Learn model objects, predicted value arrays, and a structured coefficient comparison table illustrating regularization effects.
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase-card" id="phase4">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 04</span>
+            Phase 4 &mdash; Rigorous Model Evaluation &amp; Residual Diagnostics
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Statistical Goodness-of-Fit</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Evaluate the out-of-sample predictive fidelity of each candidate model using standardized regression metrics, followed by rigorous econometric validation of Gauss-Markov residual assumptions.</p>
+
+        <div class="academic-table-wrapper">
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Mathematical Definition</th>
+                <th>Domain Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RMSE</strong> (Root Mean Squared Error)</td>
+                <td>$\sqrt{\frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2}$</td>
+                <td>Penalizes large errors heavily; expressed in original dollar units (\$).</td>
+              </tr>
+              <tr>
+                <td><strong>MAE</strong> (Mean Absolute Error)</td>
+                <td>$\frac{1}{n}\sum_{i=1}^n |y_i - \hat{y}_i|$</td>
+                <td>Robust median-like deviation; average magnitude of prediction error in \$.</td>
+              </tr>
+              <tr>
+                <td><strong>$R^2$</strong> (Coeff. of Determination)</td>
+                <td>$1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}$</td>
+                <td>Proportion of variance in medical charges explained by the covariates.</td>
+              </tr>
+              <tr>
+                <td><strong>Adjusted $R^2$</strong></td>
+                <td>$1 - \left[\frac{(1 - R^2)(n - 1)}{n - p - 1}\right]$</td>
+                <td>Adjusts $R^2$ for the number of features ($p$); penalizes superfluous inputs.</td>
+              </tr>
+              <tr>
+                <td><strong>MAPE</strong> (Optional)</td>
+                <td>$\frac{100\%}{n}\sum_{i=1}^n \left|\frac{y_i - \hat{y}_i}{y_i}\right|$</td>
+                <td>Mean percentage relative deviation across claims.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="task-list">
+          <li><strong>4.1 Quantitative Metric Compilation:</strong> Compute all four metrics across all trained estimators on identical test sets.</li>
+          <li><strong>4.2 Comparative Evaluation Matrix:</strong> Format into a clean Pandas DataFrame for side-by-side inspection.</li>
+          <li><strong>4.3 Residual Diagnostic Plots:</strong>
+            <ul class="subtask-list">
+              <li>Residual Distribution Histogram + KDE (assessing normality of errors $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$).</li>
+              <li>Residuals vs. Fitted Values Scatter Plot (evaluating homoscedasticity vs. heteroscedastic fan shapes).</li>
+            </ul>
+          </li>
+          <li><strong>4.4 Actual vs. Predicted Plots:</strong> Scatter plots of $y_{test}$ vs. $\hat{y}_{test}$ with a 45-degree identity reference line ($y = x$).</li>
+          <li><strong>4.5 Academic Interpretation:</strong> Synthesize results, explain non-linear residual patterns, and identify the top-performing baseline model.</li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Consolidated evaluation DataFrame, publication-grade residual plots, and analytical critique of model assumptions.
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="phase-card" id="phase5">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 05</span>
+            Phase 5 &mdash; Feature Selection &amp; Model Parsimony
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Dimension Reduction</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Eliminate statistically redundant or insignificant covariates to achieve a parsimonious model that reduces variance, avoids collinearity, and enhances interpretability.</p>
+
+        <ul class="task-list">
+          <li>
+            <strong>5.1 Stepwise Backward Elimination (Hypothesis-Testing Approach):</strong>
+            <ul class="subtask-list">
+              <li>Initialize regression model with the full set of predictor features using <code>statsmodels.api.OLS</code>.</li>
+              <li>Calculate individual two-tailed p-values for Student t-tests: $H_0: \beta_j = 0$ vs. $H_1: \beta_j \neq 0$.</li>
+              <li>Identify the feature with the highest p-value. If $p > \alpha_{\text{threshold}} = 0.05$, remove it and refit.</li>
+              <li>Repeat iteratively until all remaining features achieve $p \le 0.05$. Document every step in a transition log.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>5.2 Recursive Feature Elimination (RFE &mdash; Optional Scikit-Learn Route):</strong>
+            <ul class="subtask-list">
+              <li>Instantiate <code>sklearn.feature_selection.RFE</code> with a <code>LinearRegression</code> core estimator.</li>
+              <li>Isolate the optimal feature subset based on cross-validated validation scoring.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>5.3 Lasso Sparsity Coefficient Auditing:</strong>
+            <ul class="subtask-list">
+              <li>Examine the coefficient vector $\beta^{\text{Lasso}}$ obtained from Phase 3.</li>
+              <li>Highlight features driven to exact numerical zero ($\beta_j = 0$), comparing algorithmic L1 selection against the statistical p-value elimination.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Step-by-step p-value iteration log table, list of preserved vs. rejected features, and mathematical exposition of the selection algorithm.
+        </div>
+      </div>
+
+      <!-- PHASE 6 -->
+      <div class="phase-card" id="phase6">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase">Stage 06</span>
+            Phase 6 &mdash; Comparative Analysis: All Features vs. Selected Features
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Empirical Trade-off Assessment</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Rigorously measure whether trimming features causes performance degradation or successfully preserves predictive accuracy while reducing model complexity (Occam's razor).</p>
+
+        <ul class="task-list">
+          <li><strong>6.1 Re-training on Restricted Feature Matrix:</strong> Retrain all 4 models (OLS, Ridge, Lasso, ElasticNet) strictly on $X_{\text{selected}}$.</li>
+          <li><strong>6.2 Metric Re-computation:</strong> Recalculate RMSE, MAE, $R^2$, and Adjusted $R^2$ on the identical test split.</li>
+          <li><strong>6.3 Multi-Index Comparison Matrix:</strong>
+            <div class="code-window">
+              <div class="code-header"><span>Comparative Matrix Schema</span><span>Pandas MultiIndex Layout</span></div>
+              <div class="code-body">
+Index: [Linear Regression, Ridge Regression, Lasso Regression, ElasticNet]
+Columns: 
+  ├─ All Features:      [RMSE, MAE, R², Adj. R²]
+  └─ Selected Features: [RMSE, MAE, R², Adj. R²]
+              </div>
+            </div>
+          </li>
+          <li><strong>6.4 Visual Impact Assessment:</strong> Grouped bar charts contrasting metrics side-by-side between feature regimes.</li>
+          <li><strong>6.5 In-Depth Discussion:</strong> Critically analyze whether Adjusted $R^2$ improved, confirming that discarded features were purely capturing noise.</li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Consolidated comparative DataFrame, grouped performance charts, and written academic justification of the optimal model configuration.
+        </div>
+      </div>
+
+      <!-- PHASE 7 -->
+      <div class="phase-card" id="phase7">
+        <div class="phase-badge-header">
+          <div class="phase-id">
+            <span class="tag tag-phase" style="background:#ccfbf1; color:#0f766e;">Stage 07</span>
+            Phase 7 &mdash; Synthesis, Limitations &amp; Future Perspectives
+          </div>
+          <span style="font-size:0.82rem; font-family:'Plus Jakarta Sans', sans-serif; color:var(--text-muted);">Final Conclusions</span>
+        </div>
+
+        <p><strong>Primary Objective:</strong> Conclude the research with domain-level actuarial takeaways, transparently document mathematical limitations of linear paradigms, and outline high-impact next steps.</p>
+
+        <ul class="task-list">
+          <li>
+            <strong>7.1 Comprehensive Findings Summary:</strong>
+            <ul class="subtask-list">
+              <li>Declaration of the champion model across test benchmarks.</li>
+              <li>Global feature hierarchy: Rank predictors by normalized absolute coefficient magnitude ($|\beta_j^*|$).</li>
+            </ul>
+          </li>
+          <li>
+            <strong>7.2 Key Actuarial &amp; Healthcare Insights:</strong>
+            <ul class="subtask-list">
+              <li><em>Tobacco Disparity:</em> Quantify the monumental financial premium directly attributable to smoking status.</li>
+              <li><em>Compound Non-Linearity:</em> Elucidate the interaction between aging, elevated BMI, and smoking habits.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>7.3 Critical Limitations:</strong>
+            <ul class="subtask-list">
+              <li>Sample capacity ($N=1,339$) and geographical constraints.</li>
+              <li>Strict linear hyperplane assumptions failing to model piecewise threshold behavior.</li>
+              <li>Omitted variable bias: Absence of historical diagnostic codes (ICD-10), prescription history, family genetic predispositions, and income level.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>7.4 Future Perspectives &amp; Extensions:</strong>
+            <ul class="subtask-list">
+              <li>Ensemble non-linear algorithms: Random Forests, Gradient Boosted Trees (XGBoost, LightGBM, CatBoost).</li>
+              <li>Polynomial feature expansions ($BMI^2$, $BMI \times smoker$) to resolve linear underfitting.</li>
+              <li>Semi-supervised &amp; transfer learning if external health claim registries are merged.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="deliverables-box">
+          <div class="deliverables-title">Deliverables &amp; Artifacts:</div>
+          Formal conclusion section integrating actuarial interpretations, risk factor hierarchy, and structured roadmaps for version 2.0 iterations.
+        </div>
+      </div>
+
+      <!-- SECTION 4: NOTEBOOK ARCHITECTURE -->
+      <section id="notebook-structure">
+        <h2><span class="section-num">3.</span> Standardized Jupyter Notebook Architecture</h2>
+        <p>
+          To maintain strict reproducibility and professional readability, the Jupyter Notebook implementation must rigorously follow this 10-part structure:
+        </p>
+
+        <div class="code-window">
+          <div class="code-header"><span>Notebook Table of Contents</span><span>Markdown &amp; Execution Outline</span></div>
+          <div class="code-body">
+# 1. Introduction and Dataset Overview
+# 2. Library Imports and Global Environment Configuration
+# 3. Data Ingestion and Sanity Checks
+# 4. Exploratory Data Analysis (EDA)
+#    4.1 Univariate Analysis (Histograms, KDEs, Boxplots, Countplots)
+#    4.2 Bivariate Analysis (Feature vs. Charges, Interaction bmi × smoker)
+#    4.3 Multivariate Analysis (Correlation Heatmap, Pairplots)
+#    4.4 Outlier Diagnostics (Tukey's IQR Boundaries)
+# 5. Data Cleaning and Leak-Free Preprocessing
+#    5.1 Missing Value Resolution
+#    5.2 Duplicate Audit & Removal
+#    5.3 Categorical Encoding (Binary & One-Hot Encoding)
+#    5.4 Numerical Feature Scaling (StandardScaler)
+#    5.5 Train / Test Partitioning (80/20 with Fixed Seed)
+# 6. Model Training (Linear Regularization)
+#    6.1 Ordinary Least Squares (OLS) Regression
+#    6.2 Ridge Regression (L2 Regularization)
+#    6.3 Lasso Regression (L1 Regularization & Sparsity)
+#    6.4 ElasticNet Regression (L1 + L2 Hybrid)
+# 7. Model Evaluation & Residual Diagnostics
+#    7.1 Quantitative Metrics Computation (RMSE, MAE, R², Adj. R²)
+#    7.2 Residual Distribution & Homoscedasticity Analysis
+#    7.3 Consolidated Performance Matrix
+# 8. Feature Selection Protocols
+#    8.1 Backward Elimination via statsmodels OLS p-values (threshold = 0.05)
+#    8.2 Recursive Feature Elimination (RFE) & Lasso Zero-Weight Audit
+# 9. Comparative Synthesis: All Features vs. Selected Features
+#    9.1 Multi-Model Retraining on Selected Feature Space
+#    9.2 Grouped Bar Chart Visualizations & Metric Delta Tables
+# 10. Project Synthesis, Limitations, and Future Roadmap
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: MATHEMATICAL FORMULATIONS -->
+      <section id="mathematics">
+        <h2><span class="section-num">4.</span> Mathematical Foundations &amp; Objective Functions</h2>
+        <p>
+          Below are the explicit loss equations and statistical metrics underpinning the models and tests in this study.
+        </p>
+
+        <div class="math-card">
+          <div class="math-title">1. Ordinary Least Squares (OLS) Loss Function</div>
+          $$\mathcal{L}_{\text{OLS}}(\beta) = \frac{1}{2n} \sum_{i=1}^n \left( y_i - \left( \beta_0 + \sum_{j=1}^p \beta_j x_{ij} \right) \right)^2 = \frac{1}{2n} \|y - X\beta\|_2^2$$
+        </div>
+
+        <div class="math-card">
+          <div class="math-title">2. Ridge Regression ($L_2$ Regularization)</div>
+          $$\mathcal{L}_{\text{Ridge}}(\beta) = \frac{1}{2n} \|y - X\beta\|_2^2 + \alpha \sum_{j=1}^p \beta_j^2, \quad \alpha \ge 0$$
+        </div>
+
+        <div class="math-card">
+          <div class="math-title">3. Lasso Regression ($L_1$ Regularization &amp; Feature Sparsity)</div>
+          $$\mathcal{L}_{\text{Lasso}}(\beta) = \frac{1}{2n} \|y - X\beta\|_2^2 + \alpha \sum_{j=1}^p |\beta_j|, \quad \alpha \ge 0$$
+        </div>
+
+        <div class="math-card">
+          <div class="math-title">4. ElasticNet Regularization</div>
+          $$\mathcal{L}_{\text{Elastic}}(\beta) = \frac{1}{2n} \|y - X\beta\|_2^2 + \alpha \cdot \rho \sum_{j=1}^p |\beta_j| + \frac{\alpha(1-\rho)}{2} \sum_{j=1}^p \beta_j^2, \quad \rho \in [0, 1]$$
+        </div>
+
+        <div class="math-card">
+          <div class="math-title">5. Adjusted Coefficient of Determination ($\bar{R}^2$)</div>
+          $$\bar{R}^2 = 1 - \left[ \frac{(1 - R^2)(n - 1)}{n - p - 1} \right]$$
+          <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">Where $n$ represents sample size ($n=1,339$) and $p$ denotes number of active regressors.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 6: DELIVERABLES & EVALUATION CHECKLIST -->
+      <section id="deliverables">
+        <h2><span class="section-num">5.</span> Project Success Criteria &amp; Rubric Checklist</h2>
+        <p>
+          This checklist mirrors the authoritative validation criteria defined in Section 6 of the academic specification document. Use this interactive tracker during the implementation phase.
+        </p>
+
+        <div class="checklist-container">
+          <div class="checklist-item">
+            <input type="checkbox" id="chk1" onchange="updateProgress()">
+            <label class="checklist-label" for="chk1">
+              <strong>Dataset Ingestion &amp; Initial Inspection:</strong> Successfully loaded <code>medical-charges.csv</code>, audited datatypes, verified missing values and duplicate rows.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk2" onchange="updateProgress()">
+            <label class="checklist-label" for="chk2">
+              <strong>Comprehensive EDA:</strong> Complete univariate, bivariate, and multivariate visualizations with documented commentary on the $\text{BMI} \times \text{smoker}$ interaction.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk3" onchange="updateProgress()">
+            <label class="checklist-label" for="chk3">
+              <strong>Justified Preprocessing:</strong> Applied One-Hot Encoding (with <code>drop_first=True</code>) and <code>StandardScaler</code> fit exclusively on the training set to prevent data leakage.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk4" onchange="updateProgress()">
+            <label class="checklist-label" for="chk4">
+              <strong>Quad-Model Suite Training:</strong> Successfully fit Ordinary Least Squares, Ridge, Lasso, and ElasticNet estimators with cross-validation.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk5" onchange="updateProgress()">
+            <label class="checklist-label" for="chk5">
+              <strong>Standardized Evaluation Metrics:</strong> Computed and tabulated RMSE, MAE, $R^2$, and Adjusted $R^2$ across all models on test splits.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk6" onchange="updateProgress()">
+            <label class="checklist-label" for="chk6">
+              <strong>Residual Diagnostics:</strong> Rendered residual distribution histograms, homoscedasticity scatter plots, and actual vs. predicted diagrams.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk7" onchange="updateProgress()">
+            <label class="checklist-label" for="chk7">
+              <strong>Stepwise Feature Selection:</strong> Executed Backward Elimination using <code>statsmodels.api.OLS</code> p-values (threshold $\alpha=0.05$) with full iteration logging.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk8" onchange="updateProgress()">
+            <label class="checklist-label" for="chk8">
+              <strong>Comparative Analysis:</strong> Built the <em>All Features vs. Selected Features</em> comparative table and grouped bar charts.
+            </label>
+          </div>
+
+          <div class="checklist-item">
+            <input type="checkbox" id="chk9" onchange="updateProgress()">
+            <label class="checklist-label" for="chk9">
+              <strong>Analytical Synthesis &amp; Code Quality:</strong> Comprehensive concluding remarks, discussion of limitations (linearity, sample size), non-linear future perspectives, and fully commented, reproducible code cells.
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack Matrix -->
+      <section>
+        <h2><span class="section-num">6.</span> Environment &amp; Technology Stack</h2>
+        <div class="academic-table-wrapper">
+          <table class="academic-table">
+            <thead>
+              <tr>
+                <th>Technology Domain</th>
+                <th>Selected Toolchain</th>
+                <th>Role in Research Workflow</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Programming Language</strong></td>
+                <td><code>Python 3.10+</code></td>
+                <td>Core language ecosystem for data science and statistical computing.</td>
+              </tr>
+              <tr>
+                <td><strong>Runtime Environment</strong></td>
+                <td><code>JupyterLab / VS Code</code></td>
+                <td>Interactive notebook execution environment with cell-level traceability.</td>
+              </tr>
+              <tr>
+                <td><strong>Data Manipulation</strong></td>
+                <td><code>pandas</code>, <code>numpy</code></td>
+                <td>Vectorized array manipulations, matrix transformations, and tabular indexing.</td>
+              </tr>
+              <tr>
+                <td><strong>Visualization Engines</strong></td>
+                <td><code>matplotlib</code>, <code>seaborn</code></td>
+                <td>Publication-grade statistical plots, distribution densities, and heatmaps.</td>
+              </tr>
+              <tr>
+                <td><strong>Machine Learning Core</strong></td>
+                <td><code>scikit-learn</code></td>
+                <td>Estimators (LinearRegression, Ridge, Lasso, ElasticNet), scalers, metrics, and RFE.</td>
+              </tr>
+              <tr>
+                <td><strong>Statistical Inference</strong></td>
+                <td><code>statsmodels</code></td>
+                <td>Ordinary Least Squares summaries, Student t-test p-values, and F-statistics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // Interactive progress bar calculation
+    function updateProgress() {
+      const checkboxes = document.querySelectorAll('.checklist-container input[type="checkbox"]');
+      let checkedCount = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) checkedCount++;
+      });
+      const percent = Math.round((checkedCount / checkboxes.length) * 100);
+      document.getElementById('progress-bar').style.width = percent + '%';
+      document.getElementById('progress-percent').innerText = percent + '%';
+    }
+
+    // Scrollspy active state in TOC
+    window.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.toc-item a').forEach(link => {
+              if (link.getAttribute('href') === '#' + id) {
+                link.style.color = '#2563eb';
+                link.style.fontWeight = '700';
+                link.style.background = '#eff6ff';
+              } else {
+                link.style.color = '';
+                link.style.fontWeight = '';
+                link.style.background = '';
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      document.querySelectorAll('section, .phase-card, .abstract-box').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
